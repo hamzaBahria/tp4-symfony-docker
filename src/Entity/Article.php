@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,11 +15,13 @@ class Article
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $nom = null;
+    #[ORM\Column(type: "string", length: 255)]
+    #[Assert\Length(min: 5, max: 50, minMessage: "Le nom doit avoir au moins 5 caractères")]
+    private ?string $nom;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
-    private ?string $prix = null;
+    #[ORM\Column(type: "decimal", precision: 10, scale: 0)]
+    #[Assert\NotEqualTo(value: 0, message: "Le prix ne peut pas être 0")]
+    private ?string $prix;
 
     public function getId(): ?int
     {
