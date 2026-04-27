@@ -2,8 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Gestion des articles{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>+</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
         {% endblock %}
 
@@ -19,6 +20,30 @@
         {% endif %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% set currentRoute = app.request.attributes.get('_route') %}
+
+        <div class="app-shell">
+            <header class="site-header">
+                <div class="container site-header__inner">
+                    <a class="brand" href="{{ path('app_index_index') }}">ArticleManager</a>
+
+                    <nav class="navbar" aria-label="Navigation principale">
+                        <a class="nav-link {{ currentRoute == 'app_index_index' ? 'is-active' : '' }}" href="{{ path('app_index_index') }}">
+                            Articles
+                        </a>
+                        <a class="nav-link {{ currentRoute == 'app_index_new' ? 'is-active' : '' }}" href="{{ path('app_index_new') }}">
+                            Nouvel article
+                        </a>
+                        <a class="nav-link {{ currentRoute == 'new_category' ? 'is-active' : '' }}" href="{{ path('new_category') }}">
+                            Ajouter categorie
+                        </a>
+                    </nav>
+                </div>
+            </header>
+
+            <main class="container page-content">
+                {% block body %}{% endblock %}
+            </main>
+        </div>
     </body>
 </html>

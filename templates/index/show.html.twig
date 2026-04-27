@@ -1,30 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article{% endblock %}
+{% block title %}Detail de l'article{% endblock %}
 
 {% block body %}
-    <h1>Article</h1>
+    <section class="page-card">
+        <div class="page-header">
+            <div>
+                <h1>{{ article.nom }}</h1>
+                <p class="page-intro">Detail complet de l'article selectionne.</p>
+            </div>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ article.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ article.prix }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="table-wrapper">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ article.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ article.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prix</th>
+                        <td>{{ article.prix }}</td>
+                    </tr>
+                    <tr>
+                        <th>Categorie</th>
+                        <td>{{ article.category ? article.category.titre : 'Aucune' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_index_index') }}">back to list</a>
-
-    <a href="{{ path('app_index_edit', {'id': article.id}) }}">edit</a>
-
-    {{ include('index/_delete_form.html.twig') }}
+        <div class="actions">
+            <a class="btn btn-secondary" href="{{ path('app_index_index') }}">Retour a la liste</a>
+            <a class="btn btn-primary" href="{{ path('app_index_edit', {'id': article.id}) }}">Modifier</a>
+            {{ include('index/_delete_form.html.twig') }}
+        </div>
+    </section>
 {% endblock %}

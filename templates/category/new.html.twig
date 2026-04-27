@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle categorie{% endblock %}
+
+{% block body %}
+    <section class="page-card">
+        <div class="page-header">
+            <div>
+                <h1>Ajouter une categorie</h1>
+                <p class="page-intro">Creez une categorie pour mieux organiser les articles.</p>
+            </div>
+        </div>
+
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_widget(form) }}
+
+            <div class="actions">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a class="btn btn-secondary" href="{{ path('app_index_index') }}">Retour a la liste</a>
+            </div>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}

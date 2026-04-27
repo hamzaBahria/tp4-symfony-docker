@@ -1,38 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article index{% endblock %}
+{% block title %}Liste des articles{% endblock %}
 
 {% block body %}
-    <h1>Article index</h1>
+    <section class="page-card">
+        <div class="page-header">
+            <div>
+                <h1>Liste des articles</h1>
+                <p class="page-intro">Consultez, modifiez et ajoutez facilement vos articles.</p>
+            </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prix</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for article in articles %}
-            <tr>
-                <td>{{ article.id }}</td>
-                <td>{{ article.nom }}</td>
-                <td>{{ article.prix }}</td>
-                <td>
-                    <a href="{{ path('app_index_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('app_index_edit', {'id': article.id}) }}">edit</a>
-                    
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <div class="actions">
+                <a class="btn btn-primary" href="{{ path('app_index_new') }}">Ajouter un article</a>
+            </div>
+        </div>
 
-    <a href="{{ path('app_index_new') }}">Create new</a>
+        <div class="table-wrapper">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>Categorie</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td>{{ article.id }}</td>
+                        <td>{{ article.nom }}</td>
+                        <td>{{ article.prix }}</td>
+                        <td>{{ article.category ? article.category.titre : 'Aucune' }}</td>
+                        <td>
+                            <div class="table-actions">
+                                <a class="link-inline" href="{{ path('app_index_show', {'id': article.id}) }}">Voir</a>
+                                <a class="link-inline" href="{{ path('app_index_edit', {'id': article.id}) }}">Modifier</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="empty-state">Aucun article trouve pour le moment.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
 {% endblock %}

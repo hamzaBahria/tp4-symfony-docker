@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Form\ArticleType;
+use App\Form\CategoryType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,9 +17,11 @@ use Symfony\Component\Routing\Attribute\Route;
 final class IndexController extends AbstractController
 {
     public function __construct(
- private EntityManagerInterface $entityManager
- ) {} 
-    #[Route('/' , name: 'app_index_index', methods: ['GET'])]
+        private EntityManagerInterface $entityManager
+    ) {
+    }
+
+    #[Route('/', name: 'app_index_index', methods: ['GET'])]
     public function index(ArticleRepository $articleRepository): Response
     {
         return $this->render('index/index.html.twig', [
@@ -80,5 +84,24 @@ final class IndexController extends AbstractController
         }
 
         return $this->redirectToRoute('app_index_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/category/newCat', name: 'new_category', methods: ['GET', 'POST'])]
+    public function newCategory(Request $request): Response
+    {
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($category);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_index_index');
+        }
+
+        return $this->render('category/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

@@ -1,11 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Article{% endblock %}
+{% block title %}Nouvel article{% endblock %}
 
 {% block body %}
-    <h1>Create new Article</h1>
+    <section class="page-card">
+        <div class="page-header">
+            <div>
+                <h1>Nouvel article</h1>
+                <p class="page-intro">Ajoutez un article avec ses informations principales.</p>
+            </div>
+        </div>
 
-    {{ include('index/_form.html.twig') }}
+        {{ include('index/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
-    <a href="{{ path('app_index_index') }}">back to list</a>
+        <div class="actions">
+            <a class="btn btn-secondary" href="{{ path('app_index_index') }}">Retour a la liste</a>
+        </div>
+    </section>
 {% endblock %}
