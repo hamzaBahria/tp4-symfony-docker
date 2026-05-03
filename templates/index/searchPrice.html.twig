@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block title %}Recherche par prix{% endblock %}
+{% block body %}
+<div class="container mt-4">
+ <h1>Recherche par prix</h1>
+
+ <div class="row mb-4">
+ <div class="col-md-6">
+ {{ form_start(form) }}
+ <div class="mb-3">
+ {{ form_label(form.minPrice) }}
+ {{ form_widget(form.minPrice, {'attr': {'class': 'form-control',
+'placeholder': 'Prix minimum'}}) }}
+ </div>
+ <div class="mb-3">
+ {{ form_label(form.maxPrice) }}
+ {{ form_widget(form.maxPrice, {'attr': {'class': 'form-control',
+'placeholder': 'Prix maximum'}}) }}
+ </div>
+ <button type="submit" class="btn btn-primary">Rechercher</button>
+ {{ form_end(form) }}
+ </div>
+ </div>
+ {% if articles is not empty %}
+ <h2 class="mt-4">Résultats ({{ articles|length }})</h2>
+ <div class="row">
+ {% for article in articles %}
+ <div class="col-md-4 mb-4">
+ <div class="card">
+ <div class="card-body">
+ <h5 class="card-title">{{ article.nom }}</h5>
+ <p class="card-text">Prix: {{ article.prix }} €</p>
+ {% if article.category %}
+ <p class="card-text"><small class="text-muted">Catégorie: {{
+article.category.titre }}</small></p>
+ {% endif %}
+ <a href="{{ path('article_show', {id: article.id}) }}"
+class="btn btn-sm btn-info">Voir</a>
+ </div>
+ </div>
+ </div>
+ {% endfor %}
+ </div>
+ {% elseif form.vars.submitted %}
+ <div class="alert alert-warning">Aucun article trouvé dans cette fourchette de
+prix.</div>
+ {% endif %}
+
+ <a href="{{ path('app_index_index') }}" class="btn btn-secondary mt-3">Retour à la
+liste</a>
+</div>
+{% endblock %}

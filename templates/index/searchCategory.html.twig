@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}Recherche par catégorie{% endblock %}
+{% block body %}
+<div class="container mt-4">
+ <h1>Recherche par catégorie</h1>
+
+ <div class="row mb-4">
+ <div class="col-md-6">
+ {{ form_start(form) }}
+ {{ form_widget(form) }}
+ <button type="submit" class="btn btn-primary mt-2">Rechercher</button>
+ {{ form_end(form) }}
+ </div>
+ </div>
+ {% if articles is not empty %}
+ <h2 class="mt-4">Résultats ({{ articles|length }})</h2>
+ <div class="row">
+ {% for article in articles %}
+ <div class="col-md-4 mb-4">
+ <div class="card">
+ <div class="card-body">
+ <h5 class="card-title">{{ article.nom }}</h5>
+ <p class="card-text">Prix: {{ article.prix }} €</p>
+ {% if article.category %}
+ <p class="card-text"><small class="text-muted">Catégorie: {{
+article.category.titre }}</small></p>
+ {% endif %}
+ <a href="{{ path('article_show', {id: article.id}) }}"
+class="btn btn-sm btn-info">Voir</a>
+ </div>
+ </div>
+ </div>
+ {% endfor %}
+ </div>
+ {% elseif form.vars.submitted %}
+ <div class="alert alert-warning">Aucun article trouvé pour cette
+catégorie.</div>
+ {% endif %}
+
+ <a href="{{ path('app_index_index') }}" class="btn btn-secondary mt-3">Retour à la
+liste</a>
+</div>
+{% endblock %}

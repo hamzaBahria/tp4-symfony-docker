@@ -15,6 +15,20 @@
             </div>
         </div>
 
+        {# Search by name form #}
+ <div class="row mb-4">
+ <div class="col-md-6">
+ {{ form_start(form) }}
+ <div class="input-group">
+ {{ form_widget(form.nom, {'attr': {'class': 'form-control',
+'placeholder': 'Rechercher par nom...'}}) }}
+ <button type="submit" class="btn btn-primary">Rechercher</button>
+ </div>
+ {{ form_end(form) }}
+ </div>
+ </div>
+
+
         <div class="table-wrapper">
             <table class="table">
                 <thead>

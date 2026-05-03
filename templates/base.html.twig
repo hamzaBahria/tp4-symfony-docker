@@ -37,6 +37,21 @@
                         <a class="nav-link {{ currentRoute == 'new_category' ? 'is-active' : '' }}" href="{{ path('new_category') }}">
                             Ajouter categorie
                         </a>
+                        <ul>
+                        <li class="nav-item dropdown">
+ <a class="nav-link dropdown-toggle" href="#"
+id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ Rechercher
+ </a>
+<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+ <li><a class="dropdown-item" href="{{
+path('article_search_category') }}">Par catégorie</a></li>
+ <li><a class="dropdown-item" href="{{
+path('article_search_price') }}">Par prix</a></li>
+ </ul>
+ </li>
+
+                        </ul>
                     </nav>
                 </div>
             </header>
